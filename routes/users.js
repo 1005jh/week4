@@ -7,8 +7,12 @@ const authMiddleware = require("../middlewares/auth-middleware");
 const router = express.Router();
 
 const postUsersSchema = Joi.object({
-  nickname: Joi.string().required(),
-  password: Joi.string().required(),
+  nickname: Joi.string()
+    .required()
+    .alphanum()
+    .pattern(new RegExp("^[a-zA-Z0-9]{3,12}$")),
+
+  password: Joi.string().required().alphanum().min(4),
   confirmPassword: Joi.string().required(),
 });
 
